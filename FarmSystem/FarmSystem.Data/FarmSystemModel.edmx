@@ -1,0 +1,436 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="FarmSystemModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="ChiTietHoaDon">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="HoaDonId" Type="int" Nullable="false" />
+          <Property Name="VatTuId" Type="int" Nullable="false" />
+          <Property Name="Price" Type="float" Nullable="false" />
+          <Property Name="Quantity" Type="int" Nullable="false" />
+          <Property Name="Note" Type="nvarchar(max)" />
+          <Property Name="CreatedDate" Type="date" Nullable="false" />
+          <Property Name="IsDeleted" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="F_CongViec">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Note" Type="nvarchar" MaxLength="200" />
+          <Property Name="Sound" Type="nvarchar" MaxLength="100" />
+          <Property Name="CreatedDate" Type="date" Nullable="false" />
+          <Property Name="IsDeleted" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="F_LichSuLamViec">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CVId" Type="int" Nullable="false" />
+          <Property Name="Note" Type="nvarchar" MaxLength="200" />
+          <Property Name="CreatedDate" Type="date" Nullable="false" />
+          <Property Name="IsDeleted" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="HoaDon">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Code" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="Total" Type="float" Nullable="false" />
+          <Property Name="Note" Type="nvarchar(max)" />
+          <Property Name="CreatedDate" Type="date" Nullable="false" />
+          <Property Name="IsDeleted" Type="bit" Nullable="false" />
+          <Property Name="CustomerId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="KhachHang">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Type" Type="int" Nullable="false" />
+          <Property Name="Code" Type="varchar" MaxLength="250" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="Fax" Type="nvarchar" MaxLength="250" />
+          <Property Name="Telephone" Type="nvarchar" MaxLength="50" />
+          <Property Name="Email" Type="nvarchar" MaxLength="250" />
+          <Property Name="Phone" Type="char" MaxLength="15" />
+          <Property Name="Address" Type="nvarchar" MaxLength="1000" />
+          <Property Name="TaxCode" Type="nvarchar" MaxLength="50" />
+          <Property Name="BankAccount" Type="nvarchar" MaxLength="50" />
+          <Property Name="Note" Type="nvarchar(max)" />
+          <Property Name="IsDeleted" Type="bit" Nullable="false" />
+          <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="VatTu">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Ten" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="CongDung" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="CachDung" Type="nvarchar" MaxLength="500" />
+          <Property Name="DanhGia" Type="nvarchar" MaxLength="500" />
+          <Property Name="DonGia" Type="float" Nullable="false" />
+          <Property Name="Image" Type="nvarchar" MaxLength="1000" />
+          <Property Name="CreatedDate" Type="date" Nullable="false" />
+          <Property Name="IsDeleted" Type="bit" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_ChiTietHoaDon_HoaDon">
+          <End Role="HoaDon" Type="Self.HoaDon" Multiplicity="1" />
+          <End Role="ChiTietHoaDon" Type="Self.ChiTietHoaDon" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HoaDon">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ChiTietHoaDon">
+              <PropertyRef Name="HoaDonId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ChiTietHoaDon_VatTu">
+          <End Role="VatTu" Type="Self.VatTu" Multiplicity="1" />
+          <End Role="ChiTietHoaDon" Type="Self.ChiTietHoaDon" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="VatTu">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ChiTietHoaDon">
+              <PropertyRef Name="VatTuId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_F_LichSuLamViec_F_CongViec">
+          <End Role="F_CongViec" Type="Self.F_CongViec" Multiplicity="1" />
+          <End Role="F_LichSuLamViec" Type="Self.F_LichSuLamViec" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="F_CongViec">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="F_LichSuLamViec">
+              <PropertyRef Name="CVId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_HoaDon_KhachHang">
+          <End Role="KhachHang" Type="Self.KhachHang" Multiplicity="1" />
+          <End Role="HoaDon" Type="Self.HoaDon" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="KhachHang">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="HoaDon">
+              <PropertyRef Name="CustomerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="FarmSystemModelStoreContainer">
+          <EntitySet Name="ChiTietHoaDon" EntityType="Self.ChiTietHoaDon" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="F_CongViec" EntityType="Self.F_CongViec" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="F_LichSuLamViec" EntityType="Self.F_LichSuLamViec" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="HoaDon" EntityType="Self.HoaDon" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="KhachHang" EntityType="Self.KhachHang" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="VatTu" EntityType="Self.VatTu" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_ChiTietHoaDon_HoaDon" Association="Self.FK_ChiTietHoaDon_HoaDon">
+            <End Role="HoaDon" EntitySet="HoaDon" />
+            <End Role="ChiTietHoaDon" EntitySet="ChiTietHoaDon" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ChiTietHoaDon_VatTu" Association="Self.FK_ChiTietHoaDon_VatTu">
+            <End Role="VatTu" EntitySet="VatTu" />
+            <End Role="ChiTietHoaDon" EntitySet="ChiTietHoaDon" />
+          </AssociationSet>
+          <AssociationSet Name="FK_F_LichSuLamViec_F_CongViec" Association="Self.FK_F_LichSuLamViec_F_CongViec">
+            <End Role="F_CongViec" EntitySet="F_CongViec" />
+            <End Role="F_LichSuLamViec" EntitySet="F_LichSuLamViec" />
+          </AssociationSet>
+          <AssociationSet Name="FK_HoaDon_KhachHang" Association="Self.FK_HoaDon_KhachHang">
+            <End Role="KhachHang" EntitySet="KhachHang" />
+            <End Role="HoaDon" EntitySet="HoaDon" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="FarmSystemModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="FarmSystemEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="ChiTietHoaDons" EntityType="FarmSystemModel.ChiTietHoaDon" />
+          <EntitySet Name="F_CongViec" EntityType="FarmSystemModel.F_CongViec" />
+          <EntitySet Name="F_LichSuLamViec" EntityType="FarmSystemModel.F_LichSuLamViec" />
+          <EntitySet Name="HoaDons" EntityType="FarmSystemModel.HoaDon" />
+          <EntitySet Name="KhachHangs" EntityType="FarmSystemModel.KhachHang" />
+          <EntitySet Name="VatTus" EntityType="FarmSystemModel.VatTu" />
+          <AssociationSet Name="FK_ChiTietHoaDon_HoaDon" Association="FarmSystemModel.FK_ChiTietHoaDon_HoaDon">
+            <End Role="HoaDon" EntitySet="HoaDons" />
+            <End Role="ChiTietHoaDon" EntitySet="ChiTietHoaDons" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ChiTietHoaDon_VatTu" Association="FarmSystemModel.FK_ChiTietHoaDon_VatTu">
+            <End Role="VatTu" EntitySet="VatTus" />
+            <End Role="ChiTietHoaDon" EntitySet="ChiTietHoaDons" />
+          </AssociationSet>
+          <AssociationSet Name="FK_F_LichSuLamViec_F_CongViec" Association="FarmSystemModel.FK_F_LichSuLamViec_F_CongViec">
+            <End Role="F_CongViec" EntitySet="F_CongViec" />
+            <End Role="F_LichSuLamViec" EntitySet="F_LichSuLamViec" />
+          </AssociationSet>
+          <AssociationSet Name="FK_HoaDon_KhachHang" Association="FarmSystemModel.FK_HoaDon_KhachHang">
+            <End Role="KhachHang" EntitySet="KhachHangs" />
+            <End Role="HoaDon" EntitySet="HoaDons" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="ChiTietHoaDon">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="HoaDonId" Type="Int32" Nullable="false" />
+          <Property Name="VatTuId" Type="Int32" Nullable="false" />
+          <Property Name="Price" Type="Double" Nullable="false" />
+          <Property Name="Quantity" Type="Int32" Nullable="false" />
+          <Property Name="Note" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="HoaDon" Relationship="FarmSystemModel.FK_ChiTietHoaDon_HoaDon" FromRole="ChiTietHoaDon" ToRole="HoaDon" />
+          <NavigationProperty Name="VatTu" Relationship="FarmSystemModel.FK_ChiTietHoaDon_VatTu" FromRole="ChiTietHoaDon" ToRole="VatTu" />
+        </EntityType>
+        <EntityType Name="F_CongViec">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Note" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Sound" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="F_LichSuLamViec" Relationship="FarmSystemModel.FK_F_LichSuLamViec_F_CongViec" FromRole="F_CongViec" ToRole="F_LichSuLamViec" />
+        </EntityType>
+        <EntityType Name="F_LichSuLamViec">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CVId" Type="Int32" Nullable="false" />
+          <Property Name="Note" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="F_CongViec" Relationship="FarmSystemModel.FK_F_LichSuLamViec_F_CongViec" FromRole="F_LichSuLamViec" ToRole="F_CongViec" />
+        </EntityType>
+        <EntityType Name="HoaDon">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Code" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Total" Type="Double" Nullable="false" />
+          <Property Name="Note" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
+          <Property Name="CustomerId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="ChiTietHoaDons" Relationship="FarmSystemModel.FK_ChiTietHoaDon_HoaDon" FromRole="HoaDon" ToRole="ChiTietHoaDon" />
+          <NavigationProperty Name="KhachHang" Relationship="FarmSystemModel.FK_HoaDon_KhachHang" FromRole="HoaDon" ToRole="KhachHang" />
+        </EntityType>
+        <EntityType Name="KhachHang">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Type" Type="Int32" Nullable="false" />
+          <Property Name="Code" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Fax" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Telephone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Phone" Type="String" MaxLength="15" FixedLength="true" Unicode="false" />
+          <Property Name="Address" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="TaxCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="BankAccount" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Note" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="HoaDons" Relationship="FarmSystemModel.FK_HoaDon_KhachHang" FromRole="KhachHang" ToRole="HoaDon" />
+        </EntityType>
+        <EntityType Name="VatTu">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Ten" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="CongDung" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="CachDung" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="DanhGia" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="DonGia" Type="Double" Nullable="false" />
+          <Property Name="Image" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="ChiTietHoaDons" Relationship="FarmSystemModel.FK_ChiTietHoaDon_VatTu" FromRole="VatTu" ToRole="ChiTietHoaDon" />
+        </EntityType>
+        <Association Name="FK_ChiTietHoaDon_HoaDon">
+          <End Type="FarmSystemModel.HoaDon" Role="HoaDon" Multiplicity="1" />
+          <End Type="FarmSystemModel.ChiTietHoaDon" Role="ChiTietHoaDon" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HoaDon">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ChiTietHoaDon">
+              <PropertyRef Name="HoaDonId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ChiTietHoaDon_VatTu">
+          <End Type="FarmSystemModel.VatTu" Role="VatTu" Multiplicity="1" />
+          <End Type="FarmSystemModel.ChiTietHoaDon" Role="ChiTietHoaDon" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="VatTu">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ChiTietHoaDon">
+              <PropertyRef Name="VatTuId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_F_LichSuLamViec_F_CongViec">
+          <End Type="FarmSystemModel.F_CongViec" Role="F_CongViec" Multiplicity="1" />
+          <End Type="FarmSystemModel.F_LichSuLamViec" Role="F_LichSuLamViec" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="F_CongViec">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="F_LichSuLamViec">
+              <PropertyRef Name="CVId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_HoaDon_KhachHang">
+          <End Type="FarmSystemModel.KhachHang" Role="KhachHang" Multiplicity="1" />
+          <End Type="FarmSystemModel.HoaDon" Role="HoaDon" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="KhachHang">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="HoaDon">
+              <PropertyRef Name="CustomerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="FarmSystemModelStoreContainer" CdmEntityContainer="FarmSystemEntities">
+          <EntitySetMapping Name="ChiTietHoaDons">
+            <EntityTypeMapping TypeName="FarmSystemModel.ChiTietHoaDon">
+              <MappingFragment StoreEntitySet="ChiTietHoaDon">
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="Note" ColumnName="Note" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="VatTuId" ColumnName="VatTuId" />
+                <ScalarProperty Name="HoaDonId" ColumnName="HoaDonId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="F_CongViec">
+            <EntityTypeMapping TypeName="FarmSystemModel.F_CongViec">
+              <MappingFragment StoreEntitySet="F_CongViec">
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="Sound" ColumnName="Sound" />
+                <ScalarProperty Name="Note" ColumnName="Note" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="F_LichSuLamViec">
+            <EntityTypeMapping TypeName="FarmSystemModel.F_LichSuLamViec">
+              <MappingFragment StoreEntitySet="F_LichSuLamViec">
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="Note" ColumnName="Note" />
+                <ScalarProperty Name="CVId" ColumnName="CVId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="HoaDons">
+            <EntityTypeMapping TypeName="FarmSystemModel.HoaDon">
+              <MappingFragment StoreEntitySet="HoaDon">
+                <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="Note" ColumnName="Note" />
+                <ScalarProperty Name="Total" ColumnName="Total" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="KhachHangs">
+            <EntityTypeMapping TypeName="FarmSystemModel.KhachHang">
+              <MappingFragment StoreEntitySet="KhachHang">
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="Note" ColumnName="Note" />
+                <ScalarProperty Name="BankAccount" ColumnName="BankAccount" />
+                <ScalarProperty Name="TaxCode" ColumnName="TaxCode" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Telephone" ColumnName="Telephone" />
+                <ScalarProperty Name="Fax" ColumnName="Fax" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VatTus">
+            <EntityTypeMapping TypeName="FarmSystemModel.VatTu">
+              <MappingFragment StoreEntitySet="VatTu">
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="Image" ColumnName="Image" />
+                <ScalarProperty Name="DonGia" ColumnName="DonGia" />
+                <ScalarProperty Name="DanhGia" ColumnName="DanhGia" />
+                <ScalarProperty Name="CachDung" ColumnName="CachDung" />
+                <ScalarProperty Name="CongDung" ColumnName="CongDung" />
+                <ScalarProperty Name="Ten" ColumnName="Ten" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

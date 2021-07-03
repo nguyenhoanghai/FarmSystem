@@ -1,0 +1,60 @@
+﻿
+@{
+    ViewBag.Title = "Khách hàng";
+}
+
+<div id="jtable"></div>
+
+<div class="modal fade" id="popup" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button cancel aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
+                <h4 class="modal-title">Thông tin khách hàng</h4>
+            </div>
+            <div class="modal-body ">
+                <div class="container-fluid">
+                    <div class="row">
+                        <input type="hidden" id="id" />
+                        <div class="form-group col-md-12 ">
+                            <label class="control-label">Tên khách hàng <span class="required-class">*</span></label><br />
+                            <select class="form-control" id="type">
+                                <option value="1">Nhà cung cấp</option>
+                                <option value="2">Khách mua hàng</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-12 ">
+                            <label class="control-label">Tên khách hàng <span class="required-class">*</span></label><br />
+                            <input class="form-control" id="name" required="required" type="text" />
+                        </div>
+                        <div class="form-group col-md-12 ">
+                            <label class="control-label">SĐT </label><br />
+                            <input class="form-control" id="phone" required="required" type="text" />
+                        </div>
+                        <div class="form-group col-md-12 ">
+                            <label class="control-label">Địa chỉ </label><br />
+                            <textarea class="form-control" id="address"></textarea>
+                        </div>
+                        <div class="form-group col-md-12 ">
+                            <label class="control-label">Ghi chú</label>
+                            <div>
+                                <textarea class="form-control" id="note"></textarea>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button cancel aria-hidden="true" data-dismiss="modal" class="btn">
+                    <div class="button-image image-close"></div>Đóng
+                </button>
+                <button save class="btn btn-primary">
+                    <div class="button-image image-save"></div>Lưu Lại
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/Scripts/www/customer-index.js"></script>

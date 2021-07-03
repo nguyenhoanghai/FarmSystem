@@ -1,0 +1,42 @@
+﻿
+@{
+    ViewBag.Title = "Công việc";
+}
+
+<div id="jtable"></div>
+
+<div class="modal fade" id="popup" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-sm  ">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button cancel aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
+                <h4 class="modal-title">Thông tin công việc</h4>
+            </div>
+            <div class="modal-body">
+                <div class="container-fluid">
+                    <div class="row">
+                        <input type="hidden" id="id" />
+                        <div class="form-group col-md-12 ">
+                            <label class="control-label">Tên công việc <span class="required-class">*</span></label>
+                            <input class="form-control" id="name" required="required" type="text" />
+                        </div>
+                        <div class="form-group col-md-12 ">
+                            <label class="control-label">Ghi chú</label>
+                            <textarea class="form-control" id="note"></textarea>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button cancel aria-hidden="true" data-dismiss="modal" class="btn">
+                    <div class="button-image image-close"></div>Đóng
+                </button>
+                <button save class="btn btn-primary">
+                    <div class="button-image image-save"></div>Lưu Lại
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="~/Scripts/www/work-index.js"></script>

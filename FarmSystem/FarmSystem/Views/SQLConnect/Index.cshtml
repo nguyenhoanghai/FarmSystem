@@ -1,0 +1,124 @@
+﻿@using FarmSystem.Data.Model;
+@{
+    ViewBag.Title = "Kết nối CSDL";
+    string[] dbs = ViewBag.dbs != null ? ((string)ViewBag.dbs).Split(',') : new string[] { };
+    ModelSelectItem info = (ModelSelectItem)ViewBag.info;
+}
+
+<div class="row modal-sm" style="margin:auto">
+    <div class="card card-shadowed px-50 py-30 w-400px mx-auto" style="max-width: 100%">
+        <h5 class="text-uppercase text-red"  >sql connection</h5> 
+        <form class="form-type-material">
+            <div class="form-group">
+                <label for="servernames">Server name</label>
+                <input type="text" class="form-control" id="servername" value="@info.Data1">
+            </div>
+            <div class="form-group">
+                <label for="type">Authentication</label>
+                <select class="form-control" id="type">
+                    <option>Windows Authentication</option>
+                    <option>SQL Server Authentication</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="uname">User name</label>
+                <input type="text" class="form-control" id="uname" value="@info.Data3">
+            </div>
+
+            <div class="form-group">
+                <label for="pass">Password</label>
+                <input type="password" class="form-control" id="pass" value="@info.Data4">
+            </div>
+            <div class="form-group">
+                <label for="databases">Databases</label>
+                <div class="select-box">
+                    <select class="form-control" id="databases">
+                        @for (int i = 0; i < dbs.Length; i++)
+                        {
+                            <option value="@dbs[i]">@dbs[i]</option>
+                        }
+                    </select>
+                    <i class="fa fa-refresh" re-database></i>
+                </div>
+            </div>
+            <div style="border-top: 1px solid #ccc;  margin-bottom: 10px;"></div>
+            <button class="btn btn-bold btn-block btn-danger" type="button" id="save">Save Connection info</button>
+        </form>
+    </div>
+</div>
+
+<script>
+    $('#type').change(() => {
+        checkChange();
+    });
+
+    $('[re-database]').click(() => {
+        GetDatabases();
+    });
+
+    $('#save').click(() => {
+        saveConfig();
+    });
+
+    setValue();
+    function checkChange   ()  {
+        switch ($('#type').val()) {
+            case 'Windows Authentication':
+                $('#uname,#pass').prop('disabled', true);
+                break;
+            case 'SQL Server Authentication':
+                $('#uname,#pass').prop('disabled', false);
+                break;
+        }
+    }
+
+    function setValue() {
+        var isAuthen =  ('@info.Data5')== 'True';
+    if (isAuthen) {
+        $('#type').val('Windows Authentication')
+    }
+    else {
+        $('#type').val('SQL Server Authentication')
+        }
+
+        $('#databases').val('@info.Data2');
+        checkChange();
+    }
+
+    function GetDatabases() {
+        $('#databases').empty();
+        $.ajax({
+            url: '/SQLConnect/getDatabases',
+            type: 'POST',
+            data: JSON.stringify({ 'ip': $('#servername').val(), 'uname': $('#uname').val(), 'pass': $('#pass').val(), 'isAuthen': $('#type').val() =='Windows Authentication' }),
+            contentType: 'application/json charset=utf-8',
+            success: function (data) {
+                if (data) {
+                    var dataArr = data.split(',');
+                    if (dataArr) {
+                        dataArr.map((item) => {
+                            $('#databases').append(`<option value="${item}">${item}</option>`)
+                            console.log(item);
+                        });
+                    }
+                    console.log(data);
+                    console.log(dataArr);
+                }
+            }
+        });
+    }
+
+    function saveConfig() {
+        $.ajax({
+            url: '/SQLConnect/SaveConfig',
+            type: 'POST',
+            data: JSON.stringify({ 'ip': $('#servername').val(), 'uname': $('#uname').val(), 'pass': $('#pass').val(), 'isAuthen': $('#type').val() == 'Windows Authentication', 'dbname': $('#databases').val() }),
+            contentType: 'application/json charset=utf-8',
+            success: function (data) {
+                if (data) {
+                    window.location.href = '/';
+                }
+            }
+        });
+    }
+</script>

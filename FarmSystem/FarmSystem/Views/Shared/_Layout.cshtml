@@ -1,0 +1,105 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/Site.css" rel="stylesheet" />
+
+    <link href="~/Content/timepicker.css" rel="stylesheet" />
+
+    <link href="~/Content/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+
+    <link href="~/Content/bootstrap-toggle.min.css" rel="stylesheet" />
+
+    <link href="~/Content/jtable/themes/metro/blue/jtable.min.css" rel="stylesheet" />
+    <link href="~/Content/jtable/customizejtable.css" rel="stylesheet" />
+
+    <link href="~/Content/Jquery.alerts/jquery.alerts.css" rel="stylesheet" />
+
+    <script src="~/Scripts/jquery-3.3.1.js"></script>
+    @*<script src="~/Scripts/jquery-3.3.1.slim.min.js"></script>
+        <script src="~/Scripts/jquery-3.3.1.intellisense.js"></script>*@
+    <script src="~/Scripts/jquery-ui-1.11.4.min.js"></script>
+    @*<script src="~/Scripts/jquery.validate.min.js"></script>
+        <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+        <script src="~/Scripts/jquery.validate-vsdoc.js"></script>*@
+
+    <script src="~/Scripts/modernizr-2.8.3.js"></script>
+
+    <script src="~/Scripts/bootstrap.min.js"></script>
+
+    <script src="~/Scripts/bootstrap-toggle.min.js"></script>
+
+    <script src="~/Scripts/moment.js"></script>
+
+    <script src="~/Scripts/timepicker.js"></script>
+
+    <script src="~/Scripts/jtable/jquery.jtable.js"></script>
+    <script src="~/Scripts/jtable/localization/jquery.jtable.vi.js"></script>
+
+    <script src="~/Scripts/alert/jquery.alerts.js"></script>
+    <script src="~/Scripts/alert/common.js"></script>
+
+    <script src="~/Scripts/www/common.js"></script>
+
+
+    @*@Styles.Render("~/Content/css")
+        @Scripts.Render("~/bundles/modernizr")
+
+        @Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/bootstrap")
+        @Scripts.Render("~/bundles/jtable")
+        @Scripts.Render("~/bundles/alert")
+
+        @Scripts.Render("~/bundles/timepicker")
+        @Scripts.Render("~/bundles/moment")
+        @Scripts.Render("~/bundles/common")
+        @RenderSection("scripts", required: false)
+    *@
+
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink("Farm system", "Index", "workhistories", new { area = "" }, new { @class = "navbar-brand" })
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li class="dropdown"> 
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                            Danh mục
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="/vat-tu">Vật tư </a></li>
+                            <li><a href="/khach-hang">Khách hàng</a></li>
+                            <li><a href="/cong-viec">Công việc</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="/don-hang">Hóa đơn</a></li>
+                    <li><a href="/lich-su">Lịch sử làm việc</a></li>
+                    <li><a href="/ket-noi-csdl">Kết nối CSDL</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="container body-content" style="padding-top:20px">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; 01/07/2021 - Hệ thống quản lý nông trại - Designed by: Nguyễn Hoàng Hải</p>
+        </footer>
+    </div>
+
+
+</body>
+</html>
